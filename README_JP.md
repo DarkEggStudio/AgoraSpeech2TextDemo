@@ -2,10 +2,10 @@
 
 Agora speech to text demo
 
-## How to use agora speech to text service
+## サービスを使う方法
 
-> You can read the code start from  
-ChatRoomViewController.swift, line 109 (on 2023.01.02)
+> ソースコードの  
+```ChatRoomViewController.swift```, 109行目から参照する (on 2023.01.02)
 
 ```Swift
 @IBAction private func onSTTButtonClicked(_ sender: UIButton) {
@@ -13,14 +13,14 @@ ChatRoomViewController.swift, line 109 (on 2023.01.02)
 }
 ```
 
-## Start/Stop the STT service by APIs
+## サービスを起動・停止するAPI
 
-> The api defined in STTApi.swift  
+> APIのコードが ```STTApi.swift``` にある  
 Documetn reference: [pre production doc of stt](https://docs-preprod.agora.io/en/live-streaming-premium-legacy/speech_to_text_rest?platform=iOS)
 
-### Acquire
+### トークンを請求する
 
-Request the token of STT service.
+STTサービスのトークンを請求する。
 
 Method: POST  
 Endpoint: {BaseURL}[^1]/v1/projects/{appId}[^2]/rtsc/speech-to-text/builderTokens
@@ -35,24 +35,23 @@ Endpoint: {BaseURL}[^1]/v1/projects/{appId}[^2]/rtsc/speech-to-text/builderToken
 }
 ```
 
-### Start
+### STTタスクを起動する
 
-Start the STT task for the channel.
+チャンネルに、STTサービスを起動する。
 
 Method: POST  
 Endpoint: {BaseURL}[^1]/v1/projects/{appId}[^2]/rtsc/speech-to-text/tasks?builderTokens={tokenName}[^3]
 
 #### Request Body
 
-Please check the
+ソースファイル ```STTRequestModel.swift```　の中  
+下記の関数を参照してください。
 
 ```Swift
 struct AgoraSTTStartRequestModel: CommonRequestModel {
     ...
 }
 ```
-
-In ```STTRequestModel.swift```
 
 #### Response
 
@@ -64,27 +63,25 @@ In ```STTRequestModel.swift```
 }
 ```
 
-#### Query
+#### 起動中のSTTタスクを検索する
 
-Query the status of STT task
+起動中のSTTタスクを検索する
 
 Method: GET  
 Endpoint: {BaseURL}[^1]/v1/projects/{appId}[^2]/rtsc/speech-to-text/tasks/{taskId}[^4]?builderTokens={tokenName}[^3]
 
-#### Stop
+#### STTタスクを停止する
 
-Stop the STT task
+STTタスクを停止する
 
 Method: DELETE  
 Endpoint: {BaseURL}[^1]/v1/projects/{appId}[^2]/rtsc/speech-to-text/tasks/{taskId}[^4]?builderTokens={tokenName}[^3]
 
-## Receive and display text
+## 文字を取得と表示
 
-The text data will send to client with receiveStreamMessageFromUid delegate function.
-
-The data use protobuff, use ```pod "Protobuf"``` to import the framework.
-
-You can check the code from ```AgoraManager.swift``` at line 200(2023.01.02)
+文字データが ```receiveStreamMessageFromUid``` というdelegate関数にアプリに送信する。  
+データの書式がprotobuff、 ```pod "Protobuf"``` を使って、関連のframeworkを導入してください。  
+```AgoraManager.swift```の200行目からのソースを参照してください。
 
 ```Swift
 func rtcEngine(_ engine: AgoraRtcEngineKit, receiveStreamMessageFromUid uid: UInt, streamId: Int, data: Data) {
@@ -94,14 +91,13 @@ func rtcEngine(_ engine: AgoraRtcEngineKit, receiveStreamMessageFromUid uid: UIn
 
 ## Protobuf
 
-The data using protobuf.  
-You need to generate protobuf code for your project.  
-We have provided the generated code.
+字幕データがProtobufを使ってエンコードする。
+下記のProtobufコードをプロジェクトに入れる必要がある。
 
-### The Protobuf code
+### Protobufコード
 
-Be in folder ```./Protobuffer/code```  
-There 3 languages.
+フォルダ ```./Protobuffer/code```  で
+三種類の言語のコードがある
 
 * /csharp
 * /java
@@ -113,7 +109,6 @@ There 3 languages.
 
 ```
 ./Protobuffer/genCode.sh
-```
 
 ## Other
 

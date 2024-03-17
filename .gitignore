@@ -5,6 +5,19 @@
 ## User settings
 xcuserdata/
 
+## .DS_Store
+.DS_Store
+*.local
+
+# for web project
+## node_modules
+node_modules/
+## ENV files
+.env.development
+.env.production
+.env.staging
+dist/
+
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 *.xcscmblueprint
 *.xccheckout
@@ -53,9 +66,9 @@ playground.xcworkspace
 # We recommend against adding the Pods directory to your .gitignore. However
 # you should judge for yourself, the pros and cons are mentioned at:
 # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
-# Pods/
-#
+
+Pods/
+
 # Add this line if you want to avoid checking in source code from the Xcode workspace
 # *.xcworkspace
 
@@ -88,3 +101,9 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+Protobuffer/protoc-21.12-osx-aarch_64
+Protobuffer/package-lock.json
+Protobuffer/package.json
+
+# zip file
+*.zip
