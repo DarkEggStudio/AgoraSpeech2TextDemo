@@ -1,0 +1,107 @@
+@import '@/theme/base.less';
+
+.chatroom-main {
+  display: block;
+  .room-view {
+    width: 100%;
+    // background-color: red;
+    margin-top: 2rem;
+    padding-right: 0.5rem;
+    height: 100%;
+    box-sizing: border-box;
+  }
+  .room-title {
+    display: inline-block;
+    text-align: left;
+    width: 100%;
+    font-size: 1.0rem;
+    font-weight: 500;
+    color: #363636;
+    padding: 0rem 1rem 0rem 1rem;
+    box-sizing: border-box;
+  }
+  .room-info {
+    display: inline-block;
+    text-align: left;
+    padding: 0rem 1rem 0rem 1rem;
+    width: 100%;
+    font-size: 0.9rem;
+    color: #565656;
+    box-sizing: border-box;
+  }
+  .room-subtitle {
+    display: inline-block;
+    text-align: left;
+    padding: 1rem 1rem 0rem 1rem;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0px;
+    overflow: auto;
+    box-sizing: border-box;
+  }
+  .conversation-area {
+    padding: 0rem 1rem 0rem 1rem;
+    text-align: left;
+  }
+  .room-button-list {
+    // position: fixed;
+    margin-top: 2rem;
+    background-color: transparent;
+    // background-color: green;
+    overflow: hidden;
+    // margin: auto;
+    // max-width: 140px;
+    // height: 500px;
+    // display: flex;
+    // flex-flow: column nowrap;
+    // align-items: flex-end;
+    // justify-content: space-around;
+    // display: inline-block;
+    // text-align: center;
+
+    hr {
+      border-top: 1px solid #F6F6F6;
+      // border-color: #cb4c38;
+      // border-style: solid;
+      // border-width: 1px;
+    }
+
+    .btn-group-title {
+      font-weight: 500;
+      font-size: @font-size-normal;
+      text-align: left;
+      line-height: 1.5rem;
+      height: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: @text-color-secondary;
+    }
+    .btn-group-subtitle {
+      font-weight: 300;
+      font-size: @font-size-small;
+      text-align: left;
+      line-height: 1.5rem;
+      height: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .icon-button {
+      width: auto;
+      height: auto;
+      font-size:30px;
+      &-red {
+        background:#cb4c38;
+        border:#cb4c38;
+      }
+    }
+
+    .text-button {
+      width: 100%;
+      margin: 0.5rem 0 0.5rem 0;
+      margin-left: 0;
+
+      &-higher {
+        height: 4rem;
+      }
+    }
+  }
+}

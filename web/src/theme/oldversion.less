@@ -1,0 +1,222 @@
+//
+// main.scss
+// 2023.04.07
+// by Hu Yuhua
+//
+
+body {
+  font-size: 15px;
+}
+
+.tooltip {
+  padding: 0% !important
+}
+
+.mobile {
+  width: 100%;
+  max-width: 375px;
+  height: 790px;
+  margin: 8px auto;
+  margin-top: 1rem;
+  box-shadow: 0px 0px 2px 0px;
+  border-radius: 16px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  .setting-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+  }
+}
+
+.mobile1 {
+  display: inline-block;
+  left: 0px;
+  width: 375px;
+  height: 790px;
+  overflow: auto;
+  overflow-x: hidden;
+  box-shadow: 1px 0px 10px 0px;
+  position: relative;
+
+  .content {
+      padding-top: 100px;
+
+      .item {
+          padding: 10px;
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
+          justify-content: flex-start;
+          border-bottom: 1px solid #9999993d;
+
+          .first {
+              margin-right: 20px;
+          }
+      }
+
+      .itemContent {
+          padding: 10px;
+          border-bottom: 1px solid #9999993d;
+          .top {
+              display: flex;
+              flex-flow: row nowrap;
+              align-items: center;
+              justify-content: flex-start;
+
+              .first {
+                  margin-right: 20px;
+              }
+          }
+
+          .bottom {
+              font-size: 16px;
+              height: 100px;
+              width: 355px;
+              line-height: 25px;
+              word-wrap: break-word;
+              text-align: left;
+              position: relative;
+              overflow: hidden;
+              transition: all .3;
+
+              p {
+                  position: absolute;
+                  bottom: -16px;
+                  min-height: 100px;
+              }
+          }
+      }   
+  }
+}
+
+.buttonList {
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  margin-left: 210px;
+  width: 140px;
+  height: 300px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: flex-start;
+
+  .el-button {
+      width: 120px;
+      margin-bottom: 10px;
+      margin-left: 0;
+  }
+
+  .buttonBox {
+      width: 120px;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: space-around;
+  }
+}
+
+.drawerContent {
+  text-align: left;
+  padding-left: 20px;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.red {
+  color: red;
+}
+.yellow {
+  color: green;
+}
+.blue {
+  color: blue;
+}
+.final-words {
+  color:red;
+}
+
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 300px;
+  height: 100%;
+}
+
+.el-menu-vertical-demo {
+  height: 100%;
+}
+
+.mobile2 {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  background: #fff;
+
+  .content {
+      padding-top: 20px;
+      width: 90vw;
+      -webkit-overflow-scrolling: touch;
+  }
+
+  .drawerContent {
+      width: 90vw;
+      padding: 5px;
+  }
+
+  .topH {
+      padding-top: 0;
+      position: relative;
+
+      .header {
+          height: 50px;
+          font-size: 30px;
+          background: url('../../img/logo.png') 140px 5px no-repeat;
+          line-height: 50px;
+          color: #359dfd;
+          border-bottom: 1px solid #e4e7ed;
+      }
+  }
+
+  .unfold {
+      border: 0 none;
+      position: absolute;
+      left: 40px;
+      top: 10px;
+      transition: all .3s;
+  }
+
+  .close {
+      transform: rotate(135deg);
+      transform-origin: 50% 50%;
+  }
+
+  .tabs {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50px;
+      bottom: 0;
+      transition: all .3s;
+
+      .el-tabs__header {
+          width: 120px;
+      }
+
+      .el-tabs__content {
+          height: 100%;
+          overflow: scroll;
+      }
+
+      .el-tabs__item {
+          padding: 0 10px;
+      }
+  }
+
+  .tabs-close {
+      left: -121px;
+  }
+}
