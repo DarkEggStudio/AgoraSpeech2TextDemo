@@ -2,6 +2,10 @@
 
 ## Quick Start
 
+### Step 00: Enable the Real-Time Transcription (RTT) feature
+
+Enable RESTful API and Real-Time Transcription (RTT) in console at first.
+
 ### Step 01: Install required frame work by cocoapods
 
 ```Shell
@@ -43,7 +47,6 @@ You can read the code start from
 ```
 
 ### How to receive the transcription data
-
 
 You can read the code start from  
 ***AgoraManager.swift***, line 296 (on 2024.07.02)
