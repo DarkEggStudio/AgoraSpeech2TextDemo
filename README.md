@@ -1,29 +1,31 @@
-# Agora Speech to Text Demo
+# Agora Real-Time Transcription (RTT) Demo
 
-Agora speech to text demo
+Agora speech to text demos
 
-## How to use agora speech to text service
+## Platforms
 
-> You can read the code start from  
-ChatRoomViewController.swift, line 109 (on 2023.01.02)
+* [Android](./Android)
+* [iOS](./iOS)
+* [Web](./web)
 
-```Swift
-@IBAction private func onSTTButtonClicked(_ sender: UIButton) {
-    ...
-}
-```
+---
 
-## Start/Stop the STT service by APIs
+## RTT APIs description
 
-> The api defined in STTApi.swift  
 Documetn reference: [pre production doc of stt](https://docs-preprod.agora.io/en/live-streaming-premium-legacy/speech_to_text_rest?platform=iOS)
 
-### Acquire
+Postman documents: [Postman documents](https://documenter.getpostman.com/view/6319646/SVSLr9AM#69bd200a-7543-4104-8ccc-415741abbeb7)
 
-Request the token of STT service.
+### Acquire API
 
-Method: POST  
-Endpoint: {BaseURL}[^1]/v1/projects/{appId}[^2]/rtsc/speech-to-text/builderTokens
+Request the builder token of RTT service.
+
+**Method** : POST  
+**Endpoint** : {BaseURL}[^1]/v1/projects/{appId}[^2]/rtsc/speech-to-text/builderTokens
+
+#### Request
+
+None
 
 #### Response
 
@@ -35,24 +37,66 @@ Endpoint: {BaseURL}[^1]/v1/projects/{appId}[^2]/rtsc/speech-to-text/builderToken
 }
 ```
 
-### Start
+### Start API
 
 Start the STT task for the channel.
 
-Method: POST  
-Endpoint: {BaseURL}[^1]/v1/projects/{appId}[^2]/rtsc/speech-to-text/tasks?builderTokens={tokenName}[^3]
+**Method** : POST  
+**Endpoint** : {BaseURL}[^1]/v1/projects/{appId}[^2]/rtsc/speech-to-text/tasks?builderTokens={tokenName}[^3]
 
-#### Request Body
+#### Request (V2)
 
-Please check the
+Sample
 
-```Swift
-struct AgoraSTTStartRequestModel: CommonRequestModel {
-    ...
+```JSON
+{
+    "languages": [
+        "en-US",
+        "zh-CN"
+    ],
+    "maxIdleTime": 60,
+    "rtcConfig": {
+        "channelName": "{{channelName}}",
+        "subBotUid": "{{audioUID}}",
+        "subBotToken":"{{audioUIDChannelToken}}",
+        "pubBotUid": "{{textUID}}",
+        "subscribeAudioUids": [
+            "1234",
+            "5678"
+        ]
+        "cryptionMode": {{cryptionMode}},   // Cryption mode (Optional, if need cryption for audio and caption text)
+        "secret": "{{secret}}",             // Cryption secret (Optional, if need decryption for audio and caption text)
+        "salt": "{{salt}}"                  // Cryption salt (Optional, if need decryption for audio and caption text)forceTranslateInterval.languages
+    },
+    "captionConfig": {
+        "storage": {
+            "accessKey":"{{AccessKey}}",
+            "secretKey":"{{SecretKey}}",
+            "bucket":"{{Bucket}}",
+            "vendor": {{StorageVendor}},
+            "region": {{StorageRegion}},
+            "fileNamePrefix":[
+                "directory",
+                "subDirectory",
+                ...
+            ]
+        }
+    },
+    "translateConfig": {
+        "forceTranslateInterval": 5,
+        "languages": [
+            {
+                "source": "en-US",
+                "target": ["zh-CN"]
+            }
+            {
+                "source": "zh-CN",
+                "target": ["en-US"]
+            }
+        ]
+    }
 }
 ```
-
-In ```STTRequestModel.swift```
 
 #### Response
 
@@ -64,19 +108,21 @@ In ```STTRequestModel.swift```
 }
 ```
 
-#### Query
+#### Query API
 
 Query the status of STT task
 
-Method: GET  
-Endpoint: {BaseURL}[^1]/v1/projects/{appId}[^2]/rtsc/speech-to-text/tasks/{taskId}[^4]?builderTokens={tokenName}[^3]
+**Method** : GET  
+**Endpoint** : {BaseURL}[^1]/v1/projects/{appId}[^2]/rtsc/speech-to-text/tasks/{taskId}[^4]?builderTokens={tokenName}[^3]
 
-#### Stop
+#### Stop API
 
 Stop the STT task
 
 Method: DELETE  
 Endpoint: {BaseURL}[^1]/v1/projects/{appId}[^2]/rtsc/speech-to-text/tasks/{taskId}[^4]?builderTokens={tokenName}[^3]
+
+---
 
 ## Receive and display text
 
@@ -92,11 +138,17 @@ func rtcEngine(_ engine: AgoraRtcEngineKit, receiveStreamMessageFromUid uid: UIn
 }
 ```
 
+---
+
 ## Protobuf
 
 The data using protobuf.  
 You need to generate protobuf code for your project.  
 We have provided the generated code.
+
+### Protobuff Scripts
+
+[Protobuf](./Protobuffer)
 
 ### The Protobuf code
 
