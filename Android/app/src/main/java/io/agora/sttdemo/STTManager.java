@@ -73,7 +73,7 @@ public class STTManager {
         Log.i("STT", "init OkHttpClient");
         if (mOkHttpClient == null) {
             String plainCredentials = appKey + ":" + appSecret;
-            String basicAuth = "Basic ODAwOTUzZmFhOTZmNDk0ODgxNzhjMDE5MzM0M2Y4NjM6OTlhYTE2NDdmMmQ3NDYxMjk3YjE5NDFlNDk2OGQ3NmI"; //Base64Util.encode(plainCredentials);
+            String basicAuth = "Basic { TODO: Basic token }";
             mOkHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
                         @Override
