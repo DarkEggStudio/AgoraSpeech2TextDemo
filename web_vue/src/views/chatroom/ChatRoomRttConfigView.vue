@@ -58,6 +58,18 @@
           <el-icon class="info-icon"><InfoFilled /></el-icon>
         </el-tooltip>
         <hr/>
+        <div>
+          <div class="lang-title btn-group-title">Break mode</div>
+          <el-select v-model="sttConfig.breakMode" size="large" :disabled="taskStarted">
+            <el-option key="isFinal" label="Sentence" value="isFinal"/>
+            <el-option key="timeout" label="Timeout" value="timeout"/>
+            <el-option key="characterCount" label="Length" value="characterCount"/>
+          </el-select>
+          <div class="room-debug-info">
+            {{ breakModeDescription }}
+          </div>
+        </div>
+        <hr/>
         <el-button size="large" class="text-button" :disabled="startBtnState().disabled" :type="startBtnState().type" @click="toggleTask">
           {{ startBtnState().text }}
         </el-button>
@@ -132,7 +144,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeMount, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeMount, onBeforeUnmount, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Microphone, Mute, Setting, ChatLineSquare, InfoFilled } from '@element-plus/icons-vue'
 import roomConfig from '@/components/manager/RoomConfig.js'
@@ -377,6 +389,18 @@ function exit() {
   emit('exitButtonClicked')
   // router.push('/realtime')
 }
+//
+const breakModeDescription = computed(() => {
+  switch (sttConfig.value.breakMode) {
+    case 'isFinal':
+      return 'Single sentence'
+    case 'timeout':
+      return 'Concatenated sentence(separated by time) (default is 3000ms)'
+    case 'characterCount':
+      return 'Concatenated sentence(separated by text length) (default is 32 characters)'
+  }
+  return ''
+})
 </script>
 
 <style scoped lang="less">

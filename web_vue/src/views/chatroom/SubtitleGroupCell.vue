@@ -4,21 +4,28 @@
     <!-- <div class="user-avatar"><el-avatar size="small" :src="rtcMgr.allData[subtitle.uid].src" :key="rtcMgr.allData[subtitle.uid].src"/></div> -->
     <div class="user-name">
       <!-- {{ JSON.stringify(subtitleGroup) }} -->
-      {{getUsername(subtitle.uid)}}({{ subtitle.uid }})
+      {{getUsername(subtitleGroup.uid)}}({{ subtitleGroup.uid }}), break: [{{ subtitleGroup.break }}]
     </div>
   </div>
   <div class="text-panel">
     <div class="subtitle-text">
-      [{{ subtitle.lang }}] {{ subtitle.text }}
+      [{{ subtitleGroup.subtitles[0].lang }}]
+      <span v-for="(s, index) in subtitleGroup.subtitles" :key="index">
+        {{ s.text }}
+      </span>
+    </div>
+    <!-- {{ getAllTranslationLanguages() }} -->
+    <div v-for="(lang, index) in getAllTranslationLanguages()" :key="index">
+      [{{ lang }}] {{ tanslation(lang) }}
     </div>
     <!-- <div v-for="(s, index) in subtitleGroup.subtitles" :key="index">
       <div v-for="(tran, index) in s.translation" :key="index">
         <div class="translation-text" v-if="displayLang(s.lang, tran.lang)" :key="index">{{ `[${tran.lang}] ${tran.text}` }}</div>
       </div>
     </div> -->
-    <div v-for="(tran, index) in subtitle.translation" :key="index">
+    <!-- <div v-for="(tran, index) in subtitle.translation" :key="index">
       <div class="translation-text" v-if="displayLang(subtitle.lang, tran.lang)" :key="index">{{ `[${tran.lang}] ${tran.text}` }}</div>
-    </div>
+    </div> -->
   </div>
 </div>
 </template>
@@ -28,7 +35,7 @@ import channelInfo from '@/components/manager/ChannelInfo.js'
 import roomConfig from '@/components/manager/RoomConfig'
 import sttConfig from '@/components/manager/SttConfig.js'
 let props = defineProps({
-  subtitle: Object,
+  subtitleGroup: Object,
   displayTranslation: Boolean
 })
 function getUsername(uid) {

@@ -5,6 +5,9 @@ class SttConfig {
   translations = {}
   enableRec = false
   showTranslation = true
+  breakMode = 'isFinal'
+  breakTimeout = 3000
+  characterCount = 32
   // rec translation lanaguage
   recLanguage = 'auto'
   recFormat = 'txt' // txt, json
@@ -15,6 +18,9 @@ class SttConfig {
     this.translations = {}
     this.enableRec = false
     this.showTranslation = false
+    this.breakMode = 'isFinal'
+    this.breakTimeout = 3000
+    this.characterCount = 40
   }
 }
 

@@ -23,10 +23,12 @@ struct TranslationItem {
     var isFinal: Bool = false
     var isTranslateFinal = false
     
+    var language: String = ""
     var isTranslate: Bool = false
     var translation: [String: String] = [:]
     var time: Int64 = 0
     var durationMs: Int32 = 0
+    var startTextTs: Int64 = 0
     var textTs: Int64 = 0
     
     private var realtimeTranslateTrigger: Timer?

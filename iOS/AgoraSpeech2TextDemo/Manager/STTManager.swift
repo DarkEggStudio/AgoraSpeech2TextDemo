@@ -205,11 +205,11 @@ extension STTManager {
             // transcribe
             var textStr = ""
             var isFinal = false
-            var confidence = 0.0
+            //var confidence = 0.0
             if let array = (sttText.wordsArray as? [SttWord]), array.count > 0 {
                 for w: SttWord in array {
                     textStr += w.text
-                    confidence = w.confidence
+                    //confidence = w.confidence
                     isFinal = isFinal ? true : w.isFinal
                 }
             }
@@ -227,29 +227,29 @@ extension STTManager {
                 lastOne.text = textStr
                 lastOne.isFinal = isFinal
                 lastOne.time = sttText.time + Int64(sttText.durationMs)
-                //lastOne.refreshTag = 't_' + text.time + text.durationMs
                 lastOne.textTs = sttText.textTs
+                completion?(true, lastOne)
             }
             else {
                 let subtitle = SubTitle()
+                subtitle.language = sttText.culture
                 subtitle.uid = UInt(sttText.uid)
                 subtitle.text = textStr
                 subtitle.isFinal = isFinal
                 subtitle.time = sttText.time
                 subtitle.durationMs = sttText.durationMs
+                subtitle.startTextTs = sttText.textTs
                 subtitle.textTs = sttText.textTs
                 self.subtitles.append(subtitle)
-                //self.appendSubtitle(subtitle: subtitle)
                 completion?(true, subtitle)
             }
             break;
         case .translate :
             // translate
-            //var transTextStr = ""
             var isFinalTrans = false
             // find last subtitle
             guard let lastOne = self.subtitles.last(where: { el in
-                let flag = ((el.uid == sttText.uid) && (el.textTs == sttText.textTs))
+                let flag = (el.uid == sttText.uid) && ( sttText.textTs >= el.startTextTs && sttText.textTs <= el.textTs )
                 return flag
             }) else {
                 Logger.error("No transcription.")
@@ -258,24 +258,19 @@ extension STTManager {
             }
             if let transArray = (sttText.transArray as? [SttTranslation]), transArray.count > 0 {
                 for item: SttTranslation in transArray {
-                    Logger.debug("Translation: \(item.lang ?? "--"), \(item.isFinal)")
-                    
+                    Logger.debug("Translation: \(item.lang ?? "--"), \(item.isFinal) \(lastOne.textTs) \(sttText.textTs) \(lastOne.language)")
                     //guard let tran = lastOne.translation[item.lang] else {
                     lastOne.translation[item.lang] = (item.textsArray as NSArray as! [String]).joined()
                     //}
                     isFinalTrans = isFinalTrans ? true : item.isFinal
                     lastOne.isTranslateFinal = isFinalTrans
-                    lastOne.isFinal = isFinalTrans
+                    //lastOne.isFinal = isFinalTrans
                     lastOne.time = sttText.time + Int64(sttText.durationMs)
                     lastOne.textTs = sttText.textTs
                     completion?(true, lastOne)
                 }
             }
             break
-        default:
-            // unknown
-            completion?(false, nil)
-            return
         }
     }
 }

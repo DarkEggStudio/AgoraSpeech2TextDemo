@@ -1,7 +1,8 @@
 import { ref } from 'vue'
 
-class SubtitleStorage {
-  list = []
+class SubtitleStorage { 
+  list = [] // SubtitleGroup
+  singleSubtitleList = []
 }
 
 // export instance

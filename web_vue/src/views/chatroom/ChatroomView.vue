@@ -4,8 +4,14 @@
       <el-col :span="24">
         <div class="room-view">
           <ChatroomHeaderView @onLanguageClick="openConfig('language')" @onCloudStorageClick="openConfig('cloudStorage')"/>
-          <div class="room-subtitle" ref="subtitleArea" >
-            <SubtitleCell v-for="(subtitle, index) in subtitleStorage.list" :subtitle="subtitle" :key="index" :displayTranslation="sttConfig.showTranslation"/>
+          <div class="room-subtitle" ref="subtitleArea" v-if="sttConfig.breakMode == 'isFinal'">
+            <SubtitleCell v-for="(sg, index) in subtitleStorage.singleSubtitleList" :subtitle="sg" :key="index" :displayTranslation="sttConfig.showTranslation"/>
+          </div> 
+          <div class="room-subtitle" ref="subtitleArea" v-else-if="sttConfig.breakMode == 'timeout'">
+            <SubtitleGroupCell v-for="(sg, index) in subtitleStorage.list" :subtitleGroup="sg" :key="index" :displayTranslation="sttConfig.showTranslation"/>
+          </div>
+          <div class="room-subtitle" ref="subtitleArea" v-else-if="sttConfig.breakMode == 'characterCount'">
+            <SubtitleCell v-for="(sg, index) in lengthList" :subtitle="sg" :key="index" :displayTranslation="sttConfig.showTranslation"/>
           </div>
         </div>
       </el-col>
@@ -44,7 +50,7 @@
 </template>
 
 <script setup lang="js">
-import { ref, onMounted, onBeforeMount, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeMount, onBeforeUnmount, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import router from '@/router';
 import rtcMgr from "@/components/manager/RtcManager.js"
@@ -54,10 +60,12 @@ import sttConfig from '@/components/manager/SttConfig.js'
 import cloudRecMgr from '@/components/manager/CloudRecManager.js'
 import sttApiManager from '@/components/manager/STTApiManager'
 import subtitleManager from "@/components/manager/SubtitleManager.js"
+import {Subtitle} from "@/components/manager/SubtitleManager.js"
 import subtitleStorage from "@/components/manager/SubtitleStorage.js"
 import channelInfo from '@/components/manager/ChannelInfo.js'
 // 
 import SubtitleCell from '@/views/chatroom/SubtitleCell.vue'
+import SubtitleGroupCell from '@/views/chatroom/SubtitleGroupCell.vue'
 import ChatRoomRttConfigView from '@/views/chatroom/ChatRoomRttConfigView.vue'
 import LanguageConfigView from '@/views/config/LanguageConfigView.vue'
 import CloudStorageConfigView from '@/views/config/CloudStorageConfigView.vue'
@@ -277,7 +285,7 @@ const SubtitleDelegate = {
 }
 function updateSubtitleList(subtitle) {
   // TODO: will be deleted
-  console.log(`[TEST] subtitle data: ${JSON.stringify(subtitle)}`)
+  // console.log(`[TEST] subtitle data: ${JSON.stringify(subtitle)}`)
   // console.log(`[TEST] subtitleMgr.list: ${JSON.stringify(subtitleStorage.value.list)}`)
   // let a = subtitleManager.list()
   // subtitleList.value = a
@@ -351,6 +359,42 @@ function clearConfigs() {
   roomConfig.value.clear()
   sttConfig.value.clear()
 }
+const lengthList = computed(() => {
+  let array = []
+  let full = ''
+  let thisUid = 0
+  subtitleStorage.value.singleSubtitleList.forEach((sub) => {
+    thisUid = sub.uid
+    // full += '(' + sub.uid + ')' + sub.text
+    full += sub.text
+  })
+  // let codeLen = [...full].length
+  // console.log(`Length: ${codeLen}, ${full.length}`)
+  let count = sttConfig.value.characterCount
+  while (full.length > 0) {
+    let txt = full.slice(0, count)
+    console.log(`${txt}`)
+    //array.push[txt]
+    let subtitle = new Subtitle()
+    full = full.slice(count)
+    subtitle.text = txt
+    subtitle.uid = thisUid
+    array.push(subtitle)
+    console.log(`${array}`)
+  }
+
+  // subtitleStorage.value.singleSubtitleList.forEach(el => {
+  //   let lastText = array[-1]
+  //   if ( undefined == lastText ) {
+  //     let a = 
+  //     array.push(el.substr(0, 100))
+  //   }
+  //   console.log(el.text)
+  //   console.log(el.translation[''])
+  // })
+  console.log(`${array}`)
+  return array
+})
 </script>
 
 <script lang="js">
