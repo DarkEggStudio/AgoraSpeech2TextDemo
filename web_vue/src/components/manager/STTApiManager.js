@@ -254,7 +254,9 @@ class STTApiManager {
 
     let self = this
     if ( self.tokenName && self.taskId ) {
-      let res = await fetch(`${STT_BASE_PATH}/v1/projects/${AGORA_APP_ID}/rtsc/speech-to-text/tasks/${self.taskId}?builderToken=${self.tokenName}`, {
+      let url = `${STT_BASE_PATH}/v1/projects/${AGORA_APP_ID}/rtsc/speech-to-text/tasks/${self.taskId}?builderToken=${self.tokenName}`
+      console.debug(url)
+      let res = await fetch(url, {
         method: 'delete',
         keepalive: true,
         headers: {
@@ -265,6 +267,7 @@ class STTApiManager {
 
       let data = await res.text();
       let dataJson = JSON.parse(data);
+      console.log(`Stop RTT Task: ${res.status}, ${dataJson}`)
       if (!dataJson.message) {
         callback(true, "")
         self.clearSttData()
