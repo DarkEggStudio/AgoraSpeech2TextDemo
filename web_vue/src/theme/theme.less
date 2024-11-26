@@ -1,0 +1,108 @@
+@import '@/theme/base.less';
+// @import '@/theme/oldversion.less';
+
+:root {
+  // font-family: @font-normal;
+  #app {
+    font-size: 16px;
+    font-family: @font-normal;
+    color: #2c3e50;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    margin-top: 0px;
+    height: 100%;
+    padding-bottom: 32px;
+  }
+
+  body {
+    overflow-y: scroll;
+  }
+  html[theme='dark-mode'] {
+    filter: invert(1) hue-rotate(180deg);
+  }
+  html[theme='dark-mode'] img{
+    filter: invert(1) hue-rotate(180deg);
+  }
+  html {
+    transition: color 300ms, background-color 300ms;
+  }
+  div {
+    box-sizing: border-box;
+  }
+  p {
+    margin-bottom: 1rem;
+  }
+  hr {
+    border: 0;
+    height: 1px;
+    margin: 0.5rem 0;
+  }
+  // link
+  a {
+    text-decoration: none;
+    cursor: pointer;
+    &:hover {
+      color: @link-hover-color;
+    }
+    &:active {
+      color: @link-active-color
+    }
+    &:visited {
+      color: @link-color;
+    }
+  }
+}
+
+.page-area {
+  min-width: 600px;
+  max-width: 1000px;
+  margin: 0 2rem 0 2rem;
+  width: 95%;
+  &-header {
+    height: 40px;
+    // font-family: @font-header;
+  }
+  &-body {
+    text-align: center;
+    min-height: 900px;
+  }
+  &-footer {
+    // font-family: @font-header;
+  }
+}
+
+// icon
+.fa-icon {
+  font-size: @font-size-normal;
+  margin: 0 0.5rem 0 0.5rem;
+  &-big {
+    font-size: @font-size-big;
+  }
+}
+
+div.main-content {
+  background-color: transparent;
+  padding: 0.5rem;
+}
+
+div.routeview-container {
+  background-color: transparent;
+  padding: 0.5rem;
+}
+
+div.shadow-block {
+  margin-top: 1rem;
+  box-shadow: 0px 0px 0px 1px @text-color-secondary;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+// For color modes
+// light mode color
+@media (prefers-color-scheme: light) {
+}
+
+// dark mode color
+@media (prefers-color-scheme: dark) {
+}

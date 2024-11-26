@@ -1,0 +1,45 @@
+{
+  "name": "sttwebdemo",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "format": "prettier --write src/",
+    "run:dev": "vite --mode development",
+    "run:pro": "vite --mode production",
+    "proto": "pbjs -t json-module -w commonjs -o src/protobuf/SttMessage.js src/protobuf/SttMessage.proto"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
+    "agora-rtc-sdk-ng": "^4.18.3",
+    "agora-rtm": "^2.1.6",
+    "axios": "^1.5.0",
+    "element-plus": "^2.3.14",
+    "less": "^4.2.0",
+    "pako": "^2.1.0",
+    "pinia": "^2.1.6",
+    "protobufjs": "^7.2.5",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.3.3",
+    "@vitejs/plugin-vue": "^4.3.4",
+    "@vue/eslint-config-prettier": "^8.0.0",
+    "eslint": "^8.49.0",
+    "eslint-plugin-vue": "^9.17.0",
+    "less-loader": "^11.1.3",
+    "pbjs": "^0.0.14",
+    "prettier": "^3.0.3",
+    "protobufjs-cli": "^1.1.2",
+    "vite": "^4.4.9"
+  }
+}
